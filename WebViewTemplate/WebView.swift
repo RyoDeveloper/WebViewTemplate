@@ -7,15 +7,25 @@
 //
 
 import SwiftUI
+import WebKit
 
-struct WebView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct WebView: UIViewRepresentable {
+    var url: String
+
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        uiView.load(URLRequest(url: url))
     }
 }
 
 struct WebView_Previews: PreviewProvider {
     static var previews: some View {
-        WebView()
+        WebView(url: "https://github.com/RyoDeveloper/WebViewTemplate")
     }
 }
